@@ -40,11 +40,10 @@ struct CatalogPagerView: View {
                 }
             }
         }
-        .safeAreaInset(edge: .bottom) {
+        .overlay(alignment: .bottomLeading) {
             BackgroundSwitcherView(mode: $backgroundMode)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
-                .background(.bar)
+                .padding(.leading, 20)
+                .padding(.bottom, 20)
         }
         .navigationTitle("Rive Animations")
         .toolbarColorScheme(.dark, for: .navigationBar)

@@ -13,6 +13,7 @@ struct AnimationDetailView: View {
 
     @State private var viewModel: AnimationDetailViewModel
     @State private var showParameters = false
+    @State private var showCodeSheet = false
     @FocusState private var focusedField: String?
 
     init(item: CatalogItem) {
@@ -45,20 +46,34 @@ struct AnimationDetailView: View {
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
+            .overlay(alignment: .bottomLeading) {
+                BackgroundSwitcherView(mode: $viewModel.backgroundMode)
+                    .padding(.leading, 20)
+                    .padding(.bottom, 12)
+            }
         }
         .safeAreaInset(edge: .bottom) {
-            VStack(spacing: 10) {
-                BackgroundSwitcherView(mode: $viewModel.backgroundMode)
-                bottomBar(viewModel: viewModel)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
-            .background(.bar)
+            bottomBar(viewModel: viewModel)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(.bar)
         }
         .navigationTitle(item.src)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
         .environment(\.colorScheme, .dark)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    showCodeSheet = true
+                } label: {
+                    Label("Get Code", systemImage: "chevron.left.forwardslash.chevron.right")
+                }
+            }
+        }
+        .sheet(isPresented: $showCodeSheet) {
+            CodeSnippetView(item: item)
+        }
         .task { await viewModel.load() }
     }
 

@@ -2,19 +2,18 @@
 //  CatalogBackgroundMode.swift
 //  RiveTestApp
 //
-//  The selectable catalog page backgrounds (matches the web reference's bg switcher):
-//  solid black, solid dark gray (#121212), a checkerboard pattern to visualize transparency,
-//  or a truly transparent background.
+//  The selectable catalog page backgrounds, driven by `bg_button.riv`'s "bgNum" ViewModel
+//  property (matches the web reference's bg switcher exactly): solid black, solid dark gray
+//  (#121212), or a checkerboard pattern to visualize transparency.
 //
 
 import SwiftUI
 import RiveRuntime
 
 enum CatalogBackgroundMode: String, CaseIterable, Identifiable {
+    case checker
     case black
     case darkGray
-    case checker
-    case transparent
 
     var id: String { rawValue }
 
@@ -28,58 +27,40 @@ enum CatalogBackgroundMode: String, CaseIterable, Identifiable {
             return SwiftUI.Color(red: 0x12 / 255.0, green: 0x12 / 255.0, blue: 0x12 / 255.0)
         case .checker:
             return nil
-        case .transparent:
-            return .clear
         }
     }
 
     /// The background color to bake directly into each Rive render, so transparent artwork
-    /// composites cleanly in a single pass instead of showing a tinted edge. Checker and
-    /// transparent modes use a fully transparent Rive background so the pattern or underlying
-    /// content shows through as intended.
+    /// composites cleanly in a single pass instead of showing a tinted edge. The checker mode
+    /// uses a fully transparent Rive background so the pattern shows through as intended.
     var riveBackgroundColor: RiveRuntime.Color {
         switch self {
         case .black, .darkGray:
             // Safe to force unwrap because these cases always return a solidColor.
             return RiveRuntime.Color(swiftUIColor: solidColor!)
-        case .checker, .transparent:
+        case .checker:
             return RiveRuntime.Color(red: 0, green: 0, blue: 0, alpha: 0)
         }
     }
 
-    var label: String {
+    /// The value `bg_button.riv` uses for its "bgNum" ViewModel Number property for this mode
+    /// (matches `WebTester/_generate_html.py`'s `get_bg_button_html`: 1=checker, 2=black,
+    /// 3=dark gray).
+    var bgButtonNumber: Double {
         switch self {
-        case .black: return "Black"
-        case .darkGray: return "Dark Gray"
-        case .checker: return "Checker"
-        case .transparent: return "Transparent"
+        case .checker: return 1
+        case .black: return 2
+        case .darkGray: return 3
         }
     }
 
-    var systemImage: String {
-        switch self {
-        case .black: return "circle.fill"
-        case .darkGray: return "circle.fill"
-        case .checker: return "checkerboard.rectangle"
-        case .transparent: return "circle.dashed"
-        }
-    }
-
-    @ViewBuilder
-    var swatch: some View {
-        switch self {
-        case .black, .darkGray:
-            solidColor
-        case .checker:
-            CheckerboardBackground(tileSize: 6)
-        case .transparent:
-            // Use a checkerboard swatch to communicate “transparent” in the picker,
-            // but the actual full-bleed background will be Color.clear.
-            CheckerboardBackground(tileSize: 6)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .strokeBorder(.white.opacity(0.2), lineWidth: 0.5)
-                )
+    /// Reverse mapping from a "bgNum" value read off `bg_button.riv` back to a mode.
+    init?(bgButtonNumber: Double) {
+        switch Int(bgButtonNumber.rounded()) {
+        case 1: self = .checker
+        case 2: self = .black
+        case 3: self = .darkGray
+        default: return nil
         }
     }
 }
