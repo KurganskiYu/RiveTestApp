@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var store = CatalogStore()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            CatalogPagerView(store: store)
+                .navigationDestination(for: CatalogItem.self) { item in
+                    AnimationDetailView(item: item)
+                }
         }
-        .padding()
     }
 }
 

@@ -1,0 +1,95 @@
+src,size,preview,params...
+EyeNew_v5,80x80,,artboard:-
+New_v1,80x80,,artboard:-
+EyeLoader_v4_eye-A_loop,200x200,,sm:"EYE timeline",artboard:-
+EyeLoader_v5_eye-C,200x200,,trigger:"CloseTrigger",artboard:-
+CircleLoader_v2,200x200,,sm:"Circle Loader",artboard:-
+SpiralLoader_v2,200x200,,sm:"Spiral Loader",artboard:-
+WaveLoader_v4,250x250,,sm:"Wave Loader",artboard:-
+WaveLoader_v4a,250x250,,sm:"Wave Loader",artboard:-
+PulseWave_v5,360x80,,sm:"Pulse 2x",artboard:-
+PulseWave_full-circle_v6,274x274,,sm:"Timeline 1",artboard:-
+NightDay_v8,393x852,,sm:"Timeline 1",artboard:-
+Confetti_v1,930x930,,trigger:"Trigger",artboard:-
+GiftBox_v5,393x614,,artboard:GiftBox,trigger:"Trigger 1",txt:text1,txt:text2
+River_v1,526x800,,artboard:-
+PulseWaveEye_v8,274x274,,trigger:"Trigger 1",artboard:-
+StressLiquid_v1,375x812,,artboard:StressLiquid,trigger:"Trigger 1",num:StressPercent
+SleepLines_v4,375x812,,artboard:SleepLines,trigger:"Trigger 1"
+ExerciseBubbles_v3,500x812,,artboard:ExerciseBubbles,trigger:"Trigger 1"
+OnboardingStrings_v2,375x812,,artboard:OnboardingStrings
+OnboardingStrings_v3,375x812,,artboard:OnboardingStrings
+DeepRest_v2,375x812,,artboard:-
+Activity_v3,375x812,,artboard:-
+Recovery_v3,375x812,,artboard:-
+Welcome_v2,375x812,,artboard:Welcome,trigger:"Trigger 1"
+Particles_v1,375x812,,artboard:-
+LightRay_v1,375x812,,artboard:-
+sleeplake_v10,375x812,,artboard:SleepLake,trigger:"Trigger 1",num:LakeSize,bol:NoAnimation
+GodRay_v2,393x852,,artboard:GodRay,trigger:"Trigger 1"
+GodRay_Small_v1,393x852,,artboard:GodRayS,trigger:"Trigger 1"
+GodRay_Small2_v2,393x852,,artboard:GodRayS,trigger:"Trigger 1"
+sleeplake_widget_v5,196x186,,artboard:SleepLake,trigger:"Trigger 1",num:LakeSize,bol:NoAnimation
+flowerparticles_v3,375x375,,artboard:FlowerParticles,trigger:"Trigger 1",col:color1,col:color2,col:color3,col:color4,col:color5,col:color6
+TextAnim_v4,393x393,,artboard:TextAnim,trigger:"Trigger 1",txt:Text
+HeaderTextAnim_v4,393x393,,artboard:HeaderTextAnim,trigger:"Trigger 1",txt:Text
+BatteryWidget_v5,196x187,,artboard:BatteryWidget,trigger:"Trigger 1",num:BatteryPercentFrom,num:BatteryPercentTo
+GodRay_Pack_p1_v1,393x852,,artboard:Light1,trigger:"Trigger 1",bol:Flip
+GodRay_Pack_p2_v1,393x852,,artboard:Light2,trigger:"Trigger 1",bol:Flip
+GodRay_Pack_p3_v3,393x852,,artboard:Light3,trigger:"Trigger 1",bol:Flip
+BatteryReport_v15,346x336,,artboard:BatteryReport,trigger:"Trigger 1",txt:CurrentTime("19:04"),txt:CurrentPercent("27%"),v_bol:12h,v_num:CurrentPosition(79.4),v_num:NightPosition(34.7),list:BarList[num:BarHeight]
+liquidanimation_v1,375x396,,artboard:LiquidAnimation,trigger:"Trigger 1"
+DragonCat_v2,500x500,,artboard:DragonCat
+dragoncateyes_v2,100x70,,artboard:Eyes,trigger:"Trigger 1"
+LaborEffect_v2,375x812,,artboard:LaborEffect,trigger:"Trigger 1"
+SleepWavesNew_v4,375x812,,artboard:SleepWavesNew,trigger:"Trigger 1"
+keyhole_v4,393x852,,artboard:KeyHole,trigger:"Trigger 1",img:MagicImage(MagicRiver.png)
+StressImpact_v2,375x812,,artboard:StressImpact,trigger:"Trigger 1"
+activityhand_v1,375x812,,artboard:ActivityHand,trigger:"Trigger 1"
+batteryliquid_v2,375x812,,artboard:Liquid,trigger:"Trigger 1",num:Percent
+batteryliquidsleep_v2,375x812,,artboard:Liquid,trigger:"Trigger 1"
+stressfanplus_v3,375x812,,artboard:StressFanPlus
+energybyny_v7,375x812,,artboard:EnergyByNY,txt:text1("Nov"),txt:text2("Dec"),txt:text3("2026"),txt:textReclaim("Reclaim your energy by spring")
+plusesflight_v1,375x812,,artboard:PlusesFlight,txt:text
+stressfanimpact_v2,375x812,,artboard:StressImpact,v_num:percent1(12),v_num:percent2(6)
+stresscontainer_v2,393x518,,artboard:Liquid,trigger:"Trigger 1",num:PercentFrom(5),num:PercentTo(100)
+plustuktuk_v1,375x812,,artboard:Main
+starsfly_v3,393x852,,artboard:Main,trigger:"Trigger 1"
+starsflystack_v1,393x852,,artboard:Stacks,trigger:"Trigger 1"
+parametricparticles_v9,380x320,,artboard:Emitter,v_num:numParticles(120)
+contraTest_v5,375x812,
+healthdataaccess_v4,375x327,,artboard:Screen
+cometpluses2_v5,375x812,,artboard:CometPluses,v_bol:impact
+scatterpluses_v3,375x812,
+PaywallWave_v7,375x812,,v_num:rotation(0)
+stresscalendar_v11,325x352,375x812,artboard:calendar,v_num:daysAmount(31),v_num:delay(40),txt:percentToData("60 80 65 99 31 10 5 78 60 45 87 39 50 10 98 76 65 12 32 76 88 55 38 1 54 23 34 5 8 78 21 55")
+stressvessels_v2,375x584,375x812
+godraycomment_v5,393x430,,trigger:"Trigger 1",v_bol:flip
+energysliders_v2,375x812,
+fatgraph_v2,375x812,
+bannerparticlesbutton_v1,393x206,
+bannerparticlessand_v2,393x160,
+bannerparticlessand_v4,393x206,
+playerbird_v3,393x852,
+particlesstars_v1,375x200,
+activityring_v3,393x620,,trigger:"start",v_num:goal(35),v_num:activeMinutes(66),v_num:size2mult(1.0)
+dictationbutton_v5,393x286,393x286,v_bol:pressed
+activitytags_v2,393x388,
+stressbatterygraph_v10,393x852,,v_num:stressStart(15),v_num:stressNow(55),v_num:bar1(97),v_num:bar5(65),txt:duration("120 min"),txt:timeBefore("9:00am")
+experimentprogressbar_v3,393x80,,v_num:percent(52),txt:time("23:15"),txt:timeLeft("1 h 27 min left"),txt:text("Experiment ongoing ")
+energy_liquid_v2,393x450,,artboard:energy,num:PercentFrom(5),num:PercentTo(100)
+stress_liquid_v2,393x450,,artboard:stress,num:PercentFrom(5),num:PercentTo(100)
+glints_v2,256x256,
+52_tagfire_v2,393x300,393x596,txt:tag("[tag_name]")
+52_tagliquid_v2,393x300,393x596,txt:tag("[tag_name]")
+52_tagsnumber_v2,393x300,393x596,v_num:tagsNumber(300)
+52_tagclouds_v3,393x300,393x596,txt:tag("[tag_name]")
+52_tagvessels_v2,393x300,393x596
+53_insightcardclock_v3,393x300,393x596,v_num:hours(4),v_num:minutes(45),v_num:blueHourStart(4),v_num:blueHourEnd(8),v_num:redHourStart(0),v_num:redHourEnd(4)
+54_compass31_v3,393x393,393x480,v_num:colorNum(3),v_num:state(65)
+54_compass31_comb_v3,500x500,393x852,artboard:combined,v_num:state1(96),v_num:state2(80),v_num:state3(20),v_num:state4(65),v_num:state5(0),v_num:state6(36)
+55_recoveryreport_v3,360x800,,v_num:state(2),v_bol:plusGreat(True),v_bol:plusGood(True),v_bol:plusBad(True)
+56_progressbar2_v2,393x80,,v_num:percent(52),txt:time("23:15"),txt:timeLeft("1 h 27 min left"),txt:text("Experiment ongoing ")
+57_energyfill_v1,360x800,
+58_mountain_v2,360x800,
+59_paymentcomplete_v3,393x852,,note:"Removed particle script"
