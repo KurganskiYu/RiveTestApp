@@ -27,20 +27,24 @@ struct BackgroundSwitcherView: View {
     }
 
     private func loadIfNeeded() async {
-        guard rive == nil else { return }
-        guard let loaded = try? await RiveLoader.loadRive(
+        let loadedRive: Rive
+        if let existing = rive {
+            loadedRive = existing
+        } else if let loaded = try? await RiveLoader.loadRive(
             resourceName: "bg_button",
             artboard: "main",
             stateMachine: "State Machine 1"
-        ) else { return }
-        rive = loaded
+        ) {
+            loadedRive = loaded
+            rive = loaded
+        } else {
+            return
+        }
 
-        guard let vmi = loaded.viewModelInstance else { return }
+        guard let vmi = loadedRive.viewModelInstance else { return }
         let bgNum = NumberProperty(path: "bgNum")
-        // Sync the button's own artwork to whatever is currently on screen.
         vmi.setValue(of: bgNum, to: Float(mode.bgButtonNumber))
 
-        // The button cycles "bgNum" internally when tapped; follow along.
         do {
             for try await value in vmi.valueStream(of: bgNum) {
                 if let newMode = CatalogBackgroundMode(bgButtonNumber: Double(value)) {
@@ -48,7 +52,7 @@ struct BackgroundSwitcherView: View {
                 }
             }
         } catch {
-            // Stream ended (e.g. the view/instance was torn down) — nothing to do.
+            // Stream cancelled or ended
         }
     }
 }

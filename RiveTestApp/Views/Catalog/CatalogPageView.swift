@@ -30,6 +30,6 @@ struct CatalogPageView: View {
             .padding(.horizontal, 12)
             Spacer(minLength: 0)
         }
-        .padding(.top, -20)
+        //.padding(.top, -20)
     }
 }

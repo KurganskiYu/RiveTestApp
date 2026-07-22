@@ -37,7 +37,7 @@ struct CatalogPagerView: View {
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .automatic))
-                    .ignoresSafeArea(.all, edges: .top)
+                    //.ignoresSafeArea(.all, edges: .top)
                 }
             }
         }
