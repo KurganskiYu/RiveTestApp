@@ -13,16 +13,14 @@ struct ParametersCardView: View {
     @FocusState.Binding var focusedField: String?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            Text("Parameters")
-                .font(.headline)
+        VStack(alignment: .leading, spacing: 4) {
 
             ForEach(viewModel.item.inputs) { input in
                 row(for: input)
             }
         }
-        .padding(16)
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .padding(4)
+        .background(Color.black.opacity(0.25), in: RoundedRectangle(cornerRadius: 20, style: .continuous))
         .padding(.horizontal, 16)
     }
 
@@ -39,8 +37,11 @@ struct ParametersCardView: View {
                 ), format: .number)
                 .keyboardType(.decimalPad)
                 .multilineTextAlignment(.trailing)
-                .frame(width: 100)
-                .textFieldStyle(.roundedBorder)
+                .frame(width: 60)
+                .padding(8)
+                .background(Color.black.opacity(0.45))
+                .cornerRadius(12)
+                .foregroundColor(.white)
                 .focused($focusedField, equals: name)
             }
 
@@ -59,7 +60,10 @@ struct ParametersCardView: View {
                     set: { viewModel.setString(name, $0) }
                 ))
                 .multilineTextAlignment(.trailing)
-                .textFieldStyle(.roundedBorder)
+                .padding(8)
+                .background(Color.black.opacity(0.45))
+                .cornerRadius(12)
+                .foregroundColor(.white)
                 .focused($focusedField, equals: name)
             }
 
@@ -78,7 +82,10 @@ struct ParametersCardView: View {
                     set: { viewModel.setImage(name, filename: $0) }
                 ))
                 .multilineTextAlignment(.trailing)
-                .textFieldStyle(.roundedBorder)
+                .padding(8)
+                .background(Color.black.opacity(0.45))
+                .cornerRadius(12)
+                .foregroundColor(.white)
                 .focused($focusedField, equals: name)
             }
 

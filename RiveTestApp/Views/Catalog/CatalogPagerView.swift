@@ -37,6 +37,7 @@ struct CatalogPagerView: View {
                         }
                     }
                     .tabViewStyle(.page(indexDisplayMode: .automatic))
+                    .ignoresSafeArea(.all, edges: .top)
                 }
             }
         }
@@ -45,7 +46,13 @@ struct CatalogPagerView: View {
                 .padding(.leading, 20)
                 .padding(.bottom, 20)
         }
-        .navigationTitle("Rive Animations")
+        //.navigationTitle("Rive Animations")
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Rive Animations")
+                    .font(.system(.title, weight: .thin))
+            }
+        }
         .toolbarColorScheme(.dark, for: .navigationBar)
         // The catalog always paints its own black/dark/checker background regardless of the
         // system appearance, so force a dark color scheme here too — this keeps semantic colors

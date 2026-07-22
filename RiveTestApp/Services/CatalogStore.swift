@@ -13,7 +13,7 @@ import Observation
 @Observable
 final class CatalogStore {
     /// Number of animations shown per catalog page (2 rows x 4 columns).
-    static let itemsPerPage = 8
+    static let itemsPerPage = 6
 
     private(set) var items: [CatalogItem] = []
     private(set) var pages: [[CatalogItem]] = []

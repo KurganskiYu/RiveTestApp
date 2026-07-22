@@ -22,10 +22,13 @@ struct CodeSnippetView: View {
             ScrollView {
                 Text(code)
                     .font(.system(.footnote, design: .monospaced))
+                    .foregroundColor(.white)
                     .textSelection(.enabled)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(16)
             }
+            .scrollContentBackground(.hidden)
+            .background(Color(.darkGray))
             .navigationTitle("Embed Code")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

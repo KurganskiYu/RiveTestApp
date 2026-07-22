@@ -42,7 +42,7 @@ struct AnimationDetailView: View {
             .overlay(alignment: .bottom) {
                 if showParameters {
                     ParametersCardView(viewModel: viewModel, focusedField: $focusedField)
-                        .padding(.bottom, 60)
+                        .padding(.bottom, 10)
                         .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
@@ -56,7 +56,7 @@ struct AnimationDetailView: View {
             bottomBar(viewModel: viewModel)
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
-                .background(.bar)
+                .background(Color.black.opacity(0.25))
         }
         .navigationTitle(item.src)
         .navigationBarTitleDisplayMode(.inline)
@@ -82,7 +82,11 @@ struct AnimationDetailView: View {
         if let rive = viewModel.currentRive {
             RiveUIViewRepresentable(rive: rive)
                 .aspectRatio(aspectRatio, contentMode: .fit)
-                .padding(8)
+                .padding(6)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(Color.white.opacity(0.33), lineWidth: 0.33)
+                )
         } else if let error = viewModel.loadError {
             ContentUnavailableView(
                 "Couldn't load animation",
