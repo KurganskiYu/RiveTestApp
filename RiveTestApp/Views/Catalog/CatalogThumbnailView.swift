@@ -44,7 +44,7 @@ struct CatalogThumbnailView: View {
             )
             .aspectRatio(aspectRatio, contentMode: .fit)
 
-            Text(item.src)
+            Text(item.displayName)
                 .font(.system(size: 8))
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
@@ -52,7 +52,23 @@ struct CatalogThumbnailView: View {
         }
         .task(id: isActive) {
             if isActive {
-                await loadIfNeeded()
+                async let loading: Void = loadIfNeeded()
+
+                do {
+                    try await Task.sleep(for: .seconds(2))
+                } catch {
+                    return
+                }
+
+                await loading
+
+                guard !Task.isCancelled,
+                      let trigger = item.trigger,
+                      let viewModelInstance = rive?.viewModelInstance else {
+                    return
+                }
+
+                viewModelInstance.fire(trigger: TriggerProperty(path: trigger))
             } else {
                 rive = nil
             }

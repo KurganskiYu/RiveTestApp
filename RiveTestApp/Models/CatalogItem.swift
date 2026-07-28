@@ -62,6 +62,10 @@ struct CatalogItem: Identifiable, Hashable {
 
     var id: String { src }
 
+    var displayName: String {
+        src.replacingOccurrences(of: "_", with: " ")
+    }
+
     static func == (lhs: CatalogItem, rhs: CatalogItem) -> Bool {
         lhs.src == rhs.src
     }

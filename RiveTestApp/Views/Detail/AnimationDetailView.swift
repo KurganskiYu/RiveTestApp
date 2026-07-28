@@ -58,7 +58,7 @@ struct AnimationDetailView: View {
                 .padding(.vertical, 12)
                 .background(Color.black.opacity(0.25))
         }
-        .navigationTitle(item.src)
+        .navigationTitle(item.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
         .environment(\.colorScheme, .dark)
