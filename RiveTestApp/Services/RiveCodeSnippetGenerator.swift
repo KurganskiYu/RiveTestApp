@@ -95,7 +95,7 @@ enum RiveCodeSnippetGenerator {
         }
         for input in item.inputs {
             switch input {
-            case .number(let name, let defaultValue):
+            case .number(let name, let defaultValue, _, _):
                 lines.append("        // Number property \"\(name)\"")
                 lines.append("        vmi.setValue(of: NumberProperty(path: \"\(name)\"), to: \(numberLiteral(defaultValue ?? 0)))")
             case .boolean(let name, let defaultValue):

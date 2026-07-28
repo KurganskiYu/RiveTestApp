@@ -38,24 +38,45 @@ struct AnimationDetailView: View {
                     Spacer(minLength: 0)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .overlay(alignment: .bottom) {
+
                 if showParameters {
-                    ParametersCardView(viewModel: viewModel, focusedField: $focusedField)
-                        .padding(.bottom, 10)
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    VStack(spacing: 0) {
+                        Color.clear
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                focusedField = nil
+                                withAnimation { showParameters = false }
+                            }
+                            .accessibilityLabel("Close parameters")
+                            .accessibilityAddTraits(.isButton)
+
+                        Color.clear.frame(height: 12)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
             .overlay(alignment: .bottomLeading) {
                 BackgroundSwitcherView(mode: $viewModel.backgroundMode)
-                    .padding(.leading, 20)
-                    .padding(.bottom, 12)
+                    .padding(.leading, 12)
+                    .padding(.bottom, 6)
             }
         }
         .safeAreaInset(edge: .bottom) {
-            bottomBar(viewModel: viewModel)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
+            Group {
+                if showParameters {
+                    ParametersCardView(
+                        viewModel: viewModel,
+                        focusedField: $focusedField
+                    )
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                } else {
+                    bottomBar(viewModel: viewModel)
+                        .transition(.opacity)
+                }
+            }
+            .animation(.snappy, value: showParameters)
+                .padding(.horizontal, showParameters ? 0 : 16)
+                .padding(.vertical, 4)
                 .background(Color.black.opacity(0.25))
         }
         .navigationTitle(item.displayName)
@@ -125,18 +146,32 @@ struct AnimationDetailView: View {
                     focusedField = nil
                     withAnimation { showParameters.toggle() }
                 } label: {
-                    Label("Parameters", systemImage: "slider.horizontal.3")
+                    Image(systemName: "slider.horizontal.3")
+                        .frame(width: 28, height: 28)
                 }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.circle)
+                .controlSize(.small)
+                .tint(showParameters ? .white : .secondary)
+                .accessibilityLabel("Parameters")
+                .help("Parameters")
             }
 
             if item.trigger != nil {
                 Button {
                     viewModel.fireTrigger()
                 } label: {
-                    Label("Trigger", systemImage: "bolt.fill")
+                    Image(systemName: "bolt.fill")
+                        .frame(width: 28, height: 28)
                 }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.circle)
+                .controlSize(.small)
+                .tint(.secondary)
+                .accessibilityLabel("Trigger")
+                .help("Trigger")
             }
         }
-        .font(.title3)
+        .font(.body)
     }
 }

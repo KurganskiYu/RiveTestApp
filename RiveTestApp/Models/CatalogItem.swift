@@ -14,7 +14,7 @@ import Foundation
 /// legacy "state machine input" API. So CSV tokens `num`/`bol` are treated identically to
 /// `v_num`/`v_bol`: both become ViewModel Number/Boolean properties addressed by name.
 enum ParamSpec: Hashable, Identifiable {
-    case number(name: String, defaultValue: Double?)
+    case number(name: String, defaultValue: Double?, range: ClosedRange<Double>?, precision: Int)
     case boolean(name: String, defaultValue: Bool?)
     case string(name: String, defaultValue: String?)
     case color(name: String, defaultValue: String?)
@@ -27,7 +27,7 @@ enum ParamSpec: Hashable, Identifiable {
 
     var name: String {
         switch self {
-        case .number(let name, _): return name
+        case .number(let name, _, _, _): return name
         case .boolean(let name, _): return name
         case .string(let name, _): return name
         case .color(let name, _): return name

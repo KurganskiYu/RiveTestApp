@@ -116,11 +116,19 @@ enum CatalogCSVParser {
             return parseListSpec(rest)
         }
 
+        if type == "num" || type == "v_num" {
+            let numeric = parseNumberSpec(rest)
+            return .number(
+                name: numeric.name,
+                defaultValue: numeric.defaultValue,
+                range: numeric.range,
+                precision: numeric.precision
+            )
+        }
+
         let (name, defaultValue) = splitNameAndDefault(rest)
 
         switch type {
-        case "num", "v_num":
-            return .number(name: name, defaultValue: defaultValue.flatMap(Double.init))
         case "bol", "v_bol":
             let boolDefault = defaultValue.map { isTruthy($0) }
             return .boolean(name: name, defaultValue: boolDefault)
@@ -133,6 +141,79 @@ enum CatalogCSVParser {
         default:
             return nil
         }
+    }
+
+    private struct NumberSpec {
+        let name: String
+        let defaultValue: Double?
+        let range: ClosedRange<Double>?
+        let precision: Int
+    }
+
+    /// Parses `Name(value)` or `Name(value:min-max)`. Precision is lexical so `1.0` retains
+    /// a tenth-step slider instead of being treated as the integer literal `1`.
+    private static func parseNumberSpec(_ rest: String) -> NumberSpec {
+        let (name, rawValue) = splitNameAndDefault(rest)
+        guard let rawValue else {
+            return NumberSpec(name: name, defaultValue: nil, range: nil, precision: 0)
+        }
+
+        let components = rawValue.split(separator: ":", maxSplits: 1, omittingEmptySubsequences: false)
+        let defaultRaw = String(components[0]).trimmingCharacters(in: .whitespaces)
+        let defaultValue = Double(defaultRaw)
+
+        guard components.count == 2 else {
+            return NumberSpec(
+                name: name,
+                defaultValue: defaultValue,
+                range: nil,
+                precision: decimalPrecision(in: defaultRaw)
+            )
+        }
+
+        let rangeRaw = String(components[1]).trimmingCharacters(in: .whitespaces)
+        guard rangeRaw.count > 1,
+              let separator = rangeRaw.dropFirst().firstIndex(of: "-")
+        else {
+            return NumberSpec(
+                name: name,
+                defaultValue: defaultValue,
+                range: nil,
+                precision: decimalPrecision(in: defaultRaw)
+            )
+        }
+
+        let lowerRaw = String(rangeRaw[..<separator]).trimmingCharacters(in: .whitespaces)
+        let upperRaw = String(rangeRaw[rangeRaw.index(after: separator)...]).trimmingCharacters(in: .whitespaces)
+        guard let lower = Double(lowerRaw),
+              let upper = Double(upperRaw),
+              lower.isFinite,
+              upper.isFinite,
+              lower <= upper
+        else {
+            return NumberSpec(
+                name: name,
+                defaultValue: defaultValue,
+                range: nil,
+                precision: decimalPrecision(in: defaultRaw)
+            )
+        }
+
+        return NumberSpec(
+            name: name,
+            defaultValue: defaultValue,
+            range: lower...upper,
+            precision: max(
+                decimalPrecision(in: defaultRaw),
+                decimalPrecision(in: lowerRaw),
+                decimalPrecision(in: upperRaw)
+            )
+        )
+    }
+
+    private static func decimalPrecision(in value: String) -> Int {
+        guard let decimalSeparator = value.firstIndex(of: ".") else { return 0 }
+        return value.distance(from: value.index(after: decimalSeparator), to: value.endIndex)
     }
 
     /// Splits `Name(default)` into `("Name", "default")`, stripping wrapping quotes from the

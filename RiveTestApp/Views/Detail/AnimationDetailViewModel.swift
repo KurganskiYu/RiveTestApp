@@ -57,8 +57,9 @@ final class AnimationDetailViewModel {
     private func seedDefaults() {
         for input in item.inputs {
             switch input {
-            case .number(let name, let defaultValue):
-                numberValues[name] = defaultValue ?? 0
+            case .number(let name, let defaultValue, let range, _):
+                let value = defaultValue ?? 0
+                numberValues[name] = range.map { min(max(value, $0.lowerBound), $0.upperBound) } ?? value
             case .boolean(let name, let defaultValue):
                 boolValues[name] = defaultValue ?? false
             case .string(let name, let defaultValue):
@@ -112,8 +113,16 @@ final class AnimationDetailViewModel {
     // MARK: - Setters
 
     func setNumber(_ name: String, _ value: Double) {
-        numberValues[name] = value
-        applyToAll { $0.setValue(of: NumberProperty(path: name), to: Float(value)) }
+        let range = item.inputs.first {
+            guard case .number(let inputName, _, _, _) = $0 else { return false }
+            return inputName == name
+        }.flatMap { input -> ClosedRange<Double>? in
+            guard case .number(_, _, let range, _) = input else { return nil }
+            return range
+        }
+        let resolvedValue = range.map { min(max(value, $0.lowerBound), $0.upperBound) } ?? value
+        numberValues[name] = resolvedValue
+        applyToAll { $0.setValue(of: NumberProperty(path: name), to: Float(resolvedValue)) }
     }
 
     func setBool(_ name: String, _ value: Bool) {
